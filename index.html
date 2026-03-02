@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>my friend dot html</title>
+  <style>
+    :root{
+      --bg1:#0b0f18;
+      --bg2:#111b2d;
+      --card:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --hot:#ff3d7f;
+      --lime:#74ff7a;
+      --cyan:#53e7ff;
+      --shadow: 0 20px 80px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(83,231,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(255,61,127,.16), transparent 55%),
+        radial-gradient(1000px 700px at 50% 90%, rgba(116,255,122,.10), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      padding:24px;
+    }
+
+    .wrap{width:min(980px, 100%);}
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+      padding:10px 14px;
+      background: rgba(15,23,42,.55);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .dots{display:flex; gap:7px;}
+    .dot{
+      width:12px;height:12px;border-radius:50%;
+      box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset;
+    }
+    .dot.r{background:#ff5f57}
+    .dot.y{background:#febc2e}
+    .dot.g{background:#28c840}
+
+    .title{
+      font-weight:700;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .title span{
+      color:var(--muted);
+      font-weight:600;
+      margin-left:8px;
+      font-size:.9em;
+    }
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .btn{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(17,27,45,.7);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius: 12px;
+      font-size:14px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .06s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{border-color: rgba(83,231,255,.35)}
+    .btn:active{transform: translateY(1px)}
+    .btn small{color:var(--muted); margin-left:6px}
+
+    .card{
+      background: rgba(15,23,42,.55);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+
+    .frame{
+      position:relative;
+      padding:18px;
+      background:
+        linear-gradient(90deg, rgba(83,231,255,.18), rgba(255,61,127,.12), rgba(116,255,122,.10));
+    }
+
+    /* goofy “meme border” */
+    .border{
+      padding:10px;
+      border-radius:16px;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          rgba(255,61,127,.85) 0px,
+          rgba(255,61,127,.85) 10px,
+          rgba(83,231,255,.85) 10px,
+          rgba(83,231,255,.85) 20px
+        );
+      box-shadow: 0 14px 50px rgba(0,0,0,.35);
+    }
+
+    .imgwrap{
+      border-radius:12px;
+      overflow:hidden;
+      background:#000;
+      border: 2px solid rgba(255,255,255,.12);
+      position:relative;
+    }
+
+    img{
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:72vh;
+      object-fit:contain;
+      background:#070a10;
+    }
+
+    .tag{
+      position:absolute;
+      left:12px; top:12px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.16);
+      padding:8px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.3px;
+    }
+    .tag b{color:var(--lime)}
+    .tag i{color:var(--cyan); font-style:normal}
+
+    .caption{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      padding:14px 16px 16px;
+      background: rgba(15,23,42,.65);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .caption p{margin:0; color:var(--muted); line-height:1.35}
+    .pill{
+      white-space:nowrap;
+      background: rgba(255,61,127,.12);
+      border:1px solid rgba(255,61,127,.25);
+      padding:8px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:13px;
+      color: #ffd1e2;
+    }
+
+    .toast{
+      position:fixed;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      background: rgba(0,0,0,.70);
+      border:1px solid rgba(255,255,255,.14);
+      padding:10px 12px;
+      border-radius:12px;
+      color:var(--text);
+      font-size:14px;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="left">
+        <div class="dots">
+          <div class="dot r"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+        </div>
+        <div class="title">
+          friend showcase
+          <span>100% certified silly</span>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="btn" id="btnRoast">roast mode <small>(toggle)</small></button>
+        <button class="btn" id="btnConfetti">confetti <small>(kinda)</small></button>
+        <button class="btn" id="btnCopy">copy link <small>(lol)</small></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="frame">
+        <div class="border">
+          <div class="imgwrap" id="imgwrap">
+            <!-- change friend.jpg to your actual filename -->
+            <img src="friend.jpg" alt="my friend being iconic" />
+            <div class="tag" id="tag"><b>LIVE</b> <i>friend reaction</i> • 4k (trust)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="caption">
+        <p id="captionText">
+          welcome to the worlds smallest website. this is my friend. thats it. thats the whole plot 🧍‍♂️
+        </p>
+        <div class="pill" id="pill">status: vibing</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">ok</div>
+
+  <script>
+    const btnRoast = document.getElementById("btnRoast");
+    const btnConfetti = document.getElementById("btnConfetti");
+    const btnCopy = document.getElementById("btnCopy");
+    const captionText = document.getElementById("captionText");
+    const pill = document.getElementById("pill");
+    const tag = document.getElementById("tag");
+    const toast = document.getElementById("toast");
+
+    let roast = false;
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1200);
+    }
+
+    btnRoast.addEventListener("click", () => {
+      roast = !roast;
+      if(roast){
+        captionText.textContent = "this man looks like he just discovered the concept of gravity and is offended by it 😭";
+        pill.textContent = "status: absolutely cooked";
+        tag.innerHTML = "<b>ALERT</b> <i>bruh moment</i> • 100% real";
+        showToast("roast mode: on");
+      } else {
+        captionText.textContent = "welcome to the worlds smallest website. this is my friend. thats it. thats the whole plot 🧍‍♂️";
+        pill.textContent = "status: vibing";
+        tag.innerHTML = "<b>LIVE</b> <i>friend reaction</i> • 4k (trust)";
+        showToast("roast mode: off");
+      }
+    });
+
+    btnConfetti.addEventListener("click", () => {
+      // tiny fake confetti: just a bunch of emoji bursts
+      const burst = document.createElement("div");
+      burst.style.position = "fixed";
+      burst.style.left = (Math.random()*70 + 15) + "vw";
+      burst.style.top = "15vh";
+      burst.style.fontSize = "28px";
+      burst.style.zIndex = 9999;
+      burst.style.transition = "transform .9s ease, opacity .9s ease";
+      burst.textContent = ["🎉","💥","✨","🗿","🦝"][Math.floor(Math.random()*5)];
+      document.body.appendChild(burst);
+      requestAnimationFrame(() => {
+        burst.style.transform = "translateY(70vh) rotate(420deg)";
+        burst.style.opacity = "0";
+      });
+      setTimeout(() => burst.remove(), 950);
+      showToast("confetti (kinda)");
+    });
+
+    btnCopy.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        showToast("copied. go be annoying");
+      }catch(e){
+        showToast("cant copy here. rip");
+      }
+    });
+  </script>
+</body>
+</html>
